@@ -53,11 +53,11 @@
     in
       (import "${inputs.call-flake}/call-flake.nix") lockFile flake "";
 
-    lib.patchPkgs = pkgs: patches: let
+    lib.patchPkgs = pkgs: patches: args: let
       patched-nixpkgs = pkgs.applyPatches {
         inherit patches;
         src = pkgs.path;
       };
-    in import patched-nixpkgs {inherit (pkgs) system;};
+    in import patched-nixpkgs ({inherit (pkgs) system;} // args);
   };
 }
