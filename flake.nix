@@ -18,10 +18,7 @@
         (applyPatches {
           name = "flake";
           src = flake;
-          patches = forEach patches (patch:
-            if isAttrs patch
-            then fetchpatch2 patch
-            else patch);
+          patches = forEach patches fetchpatch2;
         })
         .overrideAttrs (_: old: {
           outputs = ["out" "narHash"];
